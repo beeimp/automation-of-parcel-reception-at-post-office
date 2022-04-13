@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script defer src="./static/script.js"></script>
+  <link rel="./index.css">
+  <title>우체국 배송 변환</title>
+</head>
+<body>
+  <h1>우체국 창구 소포 접수 변환 프로그램</h1>
+  <div class="upload-wrap">
+    <h2>엑셀 파일 업로드</h2>
+    <fieldset class="smartstore-upload-wrap">
+      <legend class="smartstore-upload-title">스마트스토어</legend>
+      <input class="smartstore-upload" type="file" multiple>
+      <table class="smartstore-upload-list">
+        <li class="smartstore-upload-item"><span>파일1</span><button>X</button></li>
+        <li class="smartstore-upload-item"><span>파일2</span><button>X</button></li>
+      </table>
+    </fieldset>
+    <fieldset class="coupangwing-upload-wrap">
+      <legend class="coupangwing-upload-title">쿠팡Wing</legend>
+      <input class="coupangwing-upload" type="file" multiple>
+      <ul class="coupangwing-upload-list">
+        <li class="coupangwing-upload-item"><span>파일2</span><button>X</button></li>
+        <li class="coupangwing-upload-item"><span>파일2</span><button>X</button></li>
+      </ul>
+    </fieldset>
+  </div>
+  <div class="download-wrap">
+    <button class="post-office-table-translation-button">우체국용 엑셀 파일로 변환</button>
+    <button class="post-office-table-download-button">우체국용 엑셀 파일 다운로드</button>
+    <div>
+      경고창
+    </div>
+  </div>
+  <table class="post-office-table">
+    <thead class="post-office-table-head">
+      <th>받는 분</th>
+      <th>우편번호</th>
+      <th>주소(시도+시군구+도로명+건물번호)</th>
+      <th>상세주소(동, 호수, 洞명칭, 아파트, 건물명 등)</th>
+      <th>휴대전화(010-1234-5678)</th>
+      <th>일반전화(02-1234-5678)</th>
+      <th>중량(kg)</th>	
+      <th>부피(cm)=가로+세로+높이</th>
+      <th>내용품코드</th>	
+      <th>내용물</th>
+      <th>배송시요청사항</th>
+      <th>분할접수 여부(Y/N)</th>
+      <th>분할접수 첫번째 중량(kg)</th>
+      <th>분할접수 첫번째 부피(cm)</th>
+      <th>분할접수 두번째 중량(kg)</th>
+      <th>분할접수 두번째 부피(cm)</th>
+    </thead>
+    <tbody class="post-office-table-body">
+    </tbody>
+  </table>
+</body>
+</html>
