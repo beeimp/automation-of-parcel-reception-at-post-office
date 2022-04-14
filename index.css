@@ -1,0 +1,106 @@
+/* Base Style */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+fieldset {
+  border-radius: 1em;
+}
+
+input[type="file"] {
+  font-size: 1em;
+}
+
+ul {
+  border: 1px solid black;
+  padding: 0em;
+  margin-top: 1em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  margin-right: 0em;
+  list-style: none;
+}
+
+ul > li {
+  padding: 0.2em 0.5em;
+}
+
+ul > li:nth-of-type(2n){
+  background-color: #dddddd;
+}
+
+/*  */
+
+.title {
+  text-align: center;
+}
+
+.upload-wrap {
+  margin: 1em;
+  border: gray 0.3em solid;
+}
+
+.upload-title {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.file-upload-wrap {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em;
+}
+
+.download-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.download-wrap > button {
+  font-weight: 500;
+  font-size: 1.2em;
+
+  border-radius: 5em;
+
+  padding: 1em;
+  margin: 1em;
+}
+
+.post-office-table-wrap {
+  max-width: 95vw;
+  margin: 2.5vw;
+  overflow-x: scroll;
+}
+
+table.post-office-table {
+  border-bottom: 1px solid black;
+  width: max-content;
+  border-collapse: collapse;
+}
+
+table.post-office-table > thead {
+  margin-bottom: 1em solid black;
+  background-color: #dddddd;
+  
+}
+table.post-office-table > thead > tr > th {
+  padding: 1em;
+  
+}
+
+tbody.post-office-table-body {
+  text-align: center;
+}
+
+tbody.post-office-table-body > tr > td {
+  padding: 0.5em 0;
+}
+
+tbody.post-office-table-body > tr:nth-child(2n) {
+  background-color: #dfdfdf;
+}
+
+tbody.post-office-table-body > tr > td:nth-of-type(3) {
+  text-align: left;
+}
