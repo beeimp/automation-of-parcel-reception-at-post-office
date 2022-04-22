@@ -2,6 +2,8 @@
 
 - 스마트스토어, 쿠팡Wing의 엑셀 파일을 업로드하여 우체국 창구소포 접수 양식으로 변환하는 웹 애플리케이션 입니다.
 
+- 접속 링크 : [https://beeimp.github.io/automation-of-parcel-reception-at-post-office/](https://beeimp.github.io/automation-of-parcel-reception-at-post-office/)
+
 ![전체 화면](assets/20220422_223448_image.png)
 
 ## 기능
