@@ -66,7 +66,12 @@ ul > li:nth-of-type(2n){
   padding: 1em;
   margin: 1em;
 }
-
+.download-wrap > button:hover {
+  background-color: rgb(69, 69, 69);
+  color:rgb(225, 225, 225);
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
 .post-office-table-wrap {
   max-width: 95vw;
   margin: 2.5vw;
