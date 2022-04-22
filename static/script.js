@@ -43,14 +43,14 @@ const template = {
 }
 
 // 엑셀 파일 읽고 데이터에 저장
-const fileReader = (file, type) => {
+const fileReader = async(file, type) => {
   let reader = new FileReader();
   reader.onload = () => {
       let data = reader.result;
       let workBook = XLSX.read(data, { type: 'binary' });
       workBook.SheetNames.forEach((sheetName) => {
           console.log('SheetName: ' + sheetName);
-          let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+          let rows =  XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
           // console.log(rows);
           uploadData[type] = [...uploadData[type], ...rows];
           console.log(uploadData);
@@ -60,12 +60,12 @@ const fileReader = (file, type) => {
 }
 
 // 파일 업로드 핸들러
-const handlerUpload = (event, type) => {
+const handlerUpload = async(event, type) => {
   let input = event.target;
 
   // 엑셀 파일 업로드 및 데이터 저장
   for(let i = 0; i < input.files.length; i++){
-    fileReader(input.files[i], type);
+    await fileReader(input.files[i], type);
   }
 
   setTimeout(()=> {
@@ -111,6 +111,7 @@ const handlerUpload = (event, type) => {
   }, 1500);
 }
 
+// 우체국용 엑셀 파일로 변환 버튼 핸들러
 const handlerOnClickPostOffceTranslation = () => {
   const smartStoreUploadData = uploadData.smartStore;
   const coupangWingUploadData = uploadData.coupangWing;
@@ -174,6 +175,31 @@ const handlerOnClickPostOffceTranslation = () => {
   
 }
 
+// 
+handlerOnClickPostOffceDownloadButton = async() => {
+  const postOfficeTable = document.querySelector('.post-office-table');
+
+  // 1. workbook 생성
+  const workbook = await XLSX.utils.book_new();
+  // 2. 워크시트 생성
+  let postOfficeSheet = await XLSX.utils.table_to_sheet(postOfficeTable);
+  // 3. workbook에 워크시트 추가
+  await XLSX.utils.book_append_sheet(workbook, postOfficeSheet, 'mainSheet');
+  // 4. 엑셀 파일 생성
+  const excelFile = await XLSX.write(workbook, {bookType:'xlsx',  type: 'binary'});
+  // 5. 파일 변환
+  let excelFileBuffer = new ArrayBuffer(excelFile.length); //convert s to arrayBuffer
+  let view = new Uint8Array(excelFileBuffer);  //create uint8array as viewer
+  for (var i=0; i<excelFile.length; i++) view[i] = excelFile.charCodeAt(i) & 0xFF; //convert to octet
+  // 6. 엑셀 파일 내보내기
+  const elementA = document.createElement('a');
+  elementA.href = URL.createObjectURL(new Blob([excelFileBuffer], {type:"application/octet-stream"}));
+  elementA.download = '우체국용_엑셀_파일.xlsx';
+  elementA.click();
+  elementA.remove();
+}
+
 smartstoreUpload.addEventListener('change', (event) => handlerUpload(event, "smartStore"));
 coupangWingUpload.addEventListener('change', (event) => handlerUpload(event, "coupangWing"));
 postOffceTranslationButton.addEventListener('click', handlerOnClickPostOffceTranslation);
+postOffceDownloadButton.addEventListener('click', handlerOnClickPostOffceDownloadButton)
