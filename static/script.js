@@ -207,7 +207,7 @@ handlerOnClickPostOffceDownloadButton = async() => {
   // 6. 엑셀 파일 내보내기
   const elementA = document.createElement('a');
   elementA.href = URL.createObjectURL(new Blob([excelFileBuffer], {type:"application/octet-stream"}));
-  elementA.download = '우체국용_엑셀_파일.xlsx';
+  elementA.download = '우체국_사전창구접수.xlsx';
   elementA.click();
   elementA.remove();
 }
