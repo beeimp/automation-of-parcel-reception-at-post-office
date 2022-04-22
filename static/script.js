@@ -49,14 +49,27 @@ const fileReader = async(file, type) => {
       let data = reader.result;
       let workBook = XLSX.read(data, { type: 'binary' });
       workBook.SheetNames.forEach((sheetName) => {
-          console.log('SheetName: ' + sheetName);
           let rows =  XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
           // console.log(rows);
           uploadData[type] = [...uploadData[type], ...rows];
-          console.log(uploadData);
       })
   };
   reader.readAsBinaryString(file);
+}
+
+const divideAddress = (address) => {
+  const addressIndex = ['시', '도', '시', '군', '구', '읍', '면'];
+  const addressArr = address.split(' ');
+  
+  let i = 0, j = 0;
+  while(i < addressIndex.length){
+    if(addressIndex[i] == addressArr[j][addressArr[j].length - 1]){
+      j++;
+    } 
+    i++;
+  }
+  console.log([addressArr.slice(0, j + 2), addressArr.slice(j + 2)]);
+  return [addressArr.slice(0, j + 2).join(' '), addressArr.slice(j + 2).join(' ')];
 }
 
 // 파일 업로드 핸들러
@@ -107,7 +120,6 @@ const handlerUpload = async(event, type) => {
         }
         break;
     }
-    console.log(ul)
   }, 1500);
 }
 
@@ -138,11 +150,12 @@ const handlerOnClickPostOffceTranslation = () => {
     })
   }
   for(let i = 0; i < coupangWingUploadData.length; i++){
+    const address = divideAddress(coupangWingUploadData[i]['수취인 주소']);
     template.body.push({ 
       [template.head[0]]: coupangWingUploadData[i]['수취인이름'],    // 받는 분
       [template.head[1]]: coupangWingUploadData[i]['우편번호'],     // 우편번호
-      [template.head[2]]: coupangWingUploadData[i]['수취인 주소'],   // 주소(시도+시군구+도로명+건물번호)
-      [template.head[3]]: "",                                     // 상세주소(동, 호수, 洞명칭, 아파트, 건물명 등)
+      [template.head[2]]: address[0],                             // 주소(시도+시군구+도로명+건물번호)
+      [template.head[3]]: address[1],                             // 상세주소(동, 호수, 洞명칭, 아파트, 건물명 등)
       [template.head[4]]: coupangWingUploadData[i]['수취인전화번호'], // 휴대전화(010-1234-5678)
       [template.head[5]]: '',                                     // 일반전화(02-1234-5678)
       [template.head[6]]: "3",                                    // 중량(kg)
