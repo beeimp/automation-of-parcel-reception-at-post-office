@@ -68,7 +68,7 @@ const divideAddress = (address) => {
     } 
     i++;
   }
-  console.log([addressArr.slice(0, j + 2), addressArr.slice(j + 2)]);
+  // console.log([addressArr.slice(0, j + 2), addressArr.slice(j + 2)]);
   return [addressArr.slice(0, j + 2).join(' '), addressArr.slice(j + 2).join(' ')];
 }
 
@@ -185,7 +185,7 @@ const handlerOnClickPostOffceTranslation = () => {
     }
     postOfficeTableBody.appendChild(tr);
   }
-  
+  // console.log("uploadData :", uploadData);
 }
 
 // 
@@ -196,10 +196,19 @@ handlerOnClickPostOffceDownloadButton = async() => {
   const workbook = await XLSX.utils.book_new();
   // 2. 워크시트 생성
   let postOfficeSheet = await XLSX.utils.table_to_sheet(postOfficeTable);
+  // 우편번호 문자열로 변경
+  for(let key in postOfficeSheet){
+    if(key[0] === 'B' && 1 < Number(key[1])){
+      postOfficeSheet[key].t = 's';
+      postOfficeSheet[key].v = postOfficeSheet[key].v >= 10000 ? String(postOfficeSheet[key].v) : '0' + String(postOfficeSheet[key].v);
+    }
+  }
+  // console.log(postOfficeSheet);
   // 3. workbook에 워크시트 추가
   await XLSX.utils.book_append_sheet(workbook, postOfficeSheet, 'mainSheet');
   // 4. 엑셀 파일 생성
   const excelFile = await XLSX.write(workbook, {bookType:'xlsx',  type: 'binary'});
+  // console.log(excelFile); 
   // 5. 파일 변환
   let excelFileBuffer = new ArrayBuffer(excelFile.length); //convert s to arrayBuffer
   let view = new Uint8Array(excelFileBuffer);  //create uint8array as viewer
